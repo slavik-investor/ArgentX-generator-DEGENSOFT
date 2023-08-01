@@ -1,0 +1,61 @@
+@import "normalize.css/normalize.css";
+/*@import "@blueprintjs/core/lib/css/blueprint.css";*/
+
+:root {
+  --color-border: rgba(255, 255, 255, 0.075);
+  /*--color-border: rgba(255, 255, 255, 0.085);*/
+  --color-surface-active: rgba(255, 255, 255, 0.07);
+  --color-text-reverse: rgba(42, 42, 42, 0.9);
+  --color-text-reverse-2: rgba(68, 68, 68, 0.75);
+  --color-accent: #daba39;
+  --color-accent-active: #f8d034;
+  --color-accent-faded: #dac46f;
+  --color-input-bg-active-1: rgba(255, 255, 255, 0.03);
+  --color-input-bg-active-2: rgba(255, 255, 255, 0.05);
+}
+
+* {
+  outline: none !important;
+  cursor: default;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+body {
+  user-select: none;
+}
+
+input, textarea {
+  outline: none;
+  caret-color: var(--color-text-0);
+  color: var(--color-text-0);
+  border: 0.0625rem solid var(--color-border);
+  /*border-radius: .2rem;*/
+  padding: .25rem .5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: transparent;
+  height: 2.25rem;
+  cursor: text;
+  margin-top: .25rem;
+  width: 100%;
+}
+
+input:hover, textarea:hover {
+  background: var(--color-input-bg-active-1);
+}
+
+input[disabled], textarea[disabled] {
+  background: var(--color-input-bg-active-2);
+  cursor: default;
+}
+
+input[type="checkbox"] {
+  display: block;
+  height: 1.1rem;
+  width: 1.1rem;
+  cursor: default;
+}
