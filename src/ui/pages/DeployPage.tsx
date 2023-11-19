@@ -1,13 +1,12 @@
 import React, { FormEventHandler, useContext, useState } from 'react'
+import { ChangeHandler, useForm } from 'react-hook-form'
+import { Settings } from '../../shared/types'
 import { Action } from '../components/Action'
 import { Button } from '../components/Button'
-import { formStyles } from '../styles/form.styles'
-import { ChangeHandler, useForm } from 'react-hook-form'
 import { defaultSettings, getSettings, updateSettings } from '../persist/settings.persist'
-import { Settings } from '../../shared/types'
+import { formStyles } from '../styles/form.styles'
 import { pageStyles } from '../styles/page.styles'
 import { LockedContext } from '../UI'
-import { css } from '@emotion/css'
 
 
 export const DeployPage: React.FC = () => {
@@ -76,19 +75,39 @@ export const DeployPage: React.FC = () => {
         <div className={formStyles.row}>
           <span>Sleep between wallets (in seconds)</span>
           <div className={formStyles.inputs}>
-            <input disabled={locked} {...register('sleepBetweenWalletFrom')} placeholder={defaultSettings.sleepBetweenWalletFrom.toString()}/>
-            <input disabled={locked} {...register('sleepBetweenWalletTo')} placeholder={defaultSettings.sleepBetweenWalletTo.toString()}/>
+            <input
+              disabled={locked}
+              {...register('sleepBetweenWalletFrom', { valueAsNumber: true })}
+              placeholder={defaultSettings.sleepBetweenWalletFrom.toString()}
+            />
+            <input
+              disabled={locked}
+              {...register('sleepBetweenWalletTo', { valueAsNumber: true })}
+              placeholder={defaultSettings.sleepBetweenWalletTo.toString()}
+            />
           </div>
         </div>
         <div className={formStyles.row}>
           <span>Attempts</span>
-          <input disabled={locked} {...register('attempts')} placeholder={defaultSettings.attempts.toString()}/>
+          <input
+            disabled={locked}
+            {...register('attempts', { valueAsNumber: true })}
+            placeholder={defaultSettings.attempts.toString()}
+          />
         </div>
         <div className={formStyles.row}>
           <span>Sleep between attempts (in seconds)</span>
           <div className={formStyles.inputs}>
-            <input disabled={locked} {...register('sleepBetweenAttemptFrom')} placeholder={defaultSettings.sleepBetweenAttemptFrom.toString()}/>
-            <input disabled={locked} {...register('sleepBetweenAttemptTo')} placeholder={defaultSettings.sleepBetweenAttemptTo.toString()}/>
+            <input
+              disabled={locked}
+              {...register('sleepBetweenAttemptFrom', { valueAsNumber: true })}
+              placeholder={defaultSettings.sleepBetweenAttemptFrom.toString()}
+            />
+            <input
+              disabled={locked}
+              {...register('sleepBetweenAttemptTo', { valueAsNumber: true })}
+              placeholder={defaultSettings.sleepBetweenAttemptTo.toString()}
+            />
           </div>
         </div>
         <div className={formStyles.row}>
@@ -103,22 +122,3 @@ export const DeployPage: React.FC = () => {
   )
 }
 
-//         {locked && (
-//           <div className={styles.log}>
-//             <a onClick={openLog}>Open current log</a>
-//           </div>
-//         )}
-
-const styles = {
-  log: css`
-    z-index: 1;
-    margin-top: 0.25rem;
-    font-size: .7rem;
-    text-decoration: underline;
-    color: #1939da;
-
-    a {
-      cursor: pointer;
-    }
-  `
-}

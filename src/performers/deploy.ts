@@ -60,7 +60,9 @@ export async function deployer(wallets: Wallet[], settings: Settings, log: (m: s
       }
 
       if (i !== wallets.length - 1) {
-        await sleep(random(settings.sleepBetweenWalletFrom, settings.sleepBetweenWalletTo))
+        const time = random(settings.sleepBetweenWalletFrom, settings.sleepBetweenWalletTo)
+        log(`sleep for ${time}s`)
+        await sleep(time)
       }
     } catch (e) {
       log(`error: ${e?.message}`)

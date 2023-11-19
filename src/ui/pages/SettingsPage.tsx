@@ -37,5 +37,3 @@ export const SettingsPage: React.FC = () => {
     </div>
   )
 }
-
-const styles = {}
