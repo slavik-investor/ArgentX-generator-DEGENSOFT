@@ -4,7 +4,6 @@ import { SettingsPage } from './pages/SettingsPage'
 import { DeployPage } from './pages/DeployPage'
 import { css } from '@emotion/css'
 import { Banner } from './components/Banner'
-import classNames from 'classnames'
 
 
 const tabs = [

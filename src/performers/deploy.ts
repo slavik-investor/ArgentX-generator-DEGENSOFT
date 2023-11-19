@@ -1,7 +1,7 @@
 import { BigNumber, ethers } from 'ethers'
-import { Account, CallData, constants, Contract, ec, hash, Provider, uint256 } from 'starknet'
+import { Account, CallData, constants, Contract, DeployAccountContractPayload, ec, Provider, uint256 } from 'starknet'
+import { CLASS_HASH, ETH_ABI, ETH_ADDRESS } from '../shared/constants'
 import { Settings, Wallet } from '../shared/types'
-import { CLASS_HASH, ETH_ABI, ETH_ADDRESS, PROXY_CLASS_HASH } from '../shared/constants'
 import { random, sleep } from '../shared/utils'
 
 export async function deployer(wallets: Wallet[], settings: Settings, log: (m: string) => void) {
@@ -39,18 +39,11 @@ export async function deployer(wallets: Wallet[], settings: Settings, log: (m: s
       const privateKeyHex = BigNumber.from(wallet.privateKey).toHexString()
       const publicKeyHex = ec.starkCurve.getStarkKey(privateKeyHex)
 
-      const account = new Account(provider, wallet.address, privateKeyHex)
+      const account = new Account(provider, wallet.address, privateKeyHex, '1')
 
-      const constructorCallData = CallData.compile({
-        implementation: CLASS_HASH,
-        selector: hash.getSelectorFromName('initialize'),
-        calldata: CallData.compile({ signer: publicKeyHex, guardian: '0' }),
-      })
-
-      const deployAccountPayload = {
-        classHash: PROXY_CLASS_HASH,
-        constructorCalldata: constructorCallData,
-        contractAddress: account.address,
+      const deployAccountPayload: DeployAccountContractPayload = {
+        classHash: CLASS_HASH,
+        constructorCalldata: CallData.compile({ owner: publicKeyHex, guardian: '0' }),
         addressSalt: publicKeyHex,
       }
 
@@ -66,7 +59,7 @@ export async function deployer(wallets: Wallet[], settings: Settings, log: (m: s
         }
       }
 
-      if (i !== 0 && i !== wallets.length - 1) {
+      if (i !== wallets.length - 1) {
         await sleep(random(settings.sleepBetweenWalletFrom, settings.sleepBetweenWalletTo))
       }
     } catch (e) {
